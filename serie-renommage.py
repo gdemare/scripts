@@ -20,7 +20,7 @@ os.chdir(dossier)
 for i in os.listdir(dossier):
     if "mkv" in i:
         episode = re.search( "[S|s][0-9]{2}[E|e][0-9]{2}", i ).group(0)
-        nvnom = serie + episode + i[-4:]
+        nvnom = serie + ' ' +episode + i[-4:]
         print(i)
         print(nvnom)
         os.rename(i, nvnom)
