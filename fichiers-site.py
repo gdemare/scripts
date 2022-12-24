@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[6]:
+# In[1]:
 
 
 import os
@@ -20,7 +20,7 @@ for root, dirs, files in os.walk(dossAide):
     for file in files:
         if file.endswith('.md'):
             cpt = cpt + 1
-            chemin = root[len(dossAide):].replace('/', '\\')
+            chemin = root[len(dossAide):].replace('\\', '/')
             if file.endswith('_r.md'):
                 ext = 'r'
                 fichier = file[:-5]
@@ -37,7 +37,7 @@ for root, dirs, files in os.walk(dossAide):
 print(f"{cpt} fichiers trouvés.")
 
 
-# In[7]:
+# In[2]:
 
 
 tabcroi = pd.pivot_table(data, columns='extension', index=['fichier'], aggfunc='count')
@@ -56,19 +56,18 @@ jointure = jointure
 
 texte = ""
 col = jointure.columns
-print(col)
 for i, row in jointure.iterrows():
     texte = texte + "{ chemin: '" + row[col[0]] + "/" + row[col[1]] + "', general: " + str(row[col[2]])
     texte = texte + ", r: " + str(row[col[4]]) + ", sas:" + str(row[col[5]])  + ", py:" + str(row[col[3]])  + "},\n"
 
 
-# In[4]:
+# In[21]:
 
 
-tex = '// dossier ; sous dossier; chemin; general; r; sas; python\nfichiers = [' + str(texte)[0:-2] + '];'
+tex = '// dossier ; sous dossier; chemin; general; r; sas; python\nfichiers = [\n' + str(texte)[0:-2] + '\n];'
 
-with open(dossier + 'js/data.js', 'w') as f:
-    print(tex, file=f)
+with open(dossier + 'js/data.js', 'w', encoding='UTF8') as file:
+    file.writelines(tex)
 
 
 # In[ ]:
