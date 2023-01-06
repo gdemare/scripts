@@ -11,7 +11,7 @@ from tkinter import Tk
 from tkinter.filedialog import askdirectory
 import pandas as pd
 
-dossier = r'C:/Users/Guigui/GitHub/gdemare.github.io/'
+dossier = r'C:/Users/Guigui/Documents/GitHub/gdemare.github.io/'
 data = pd.DataFrame(columns = ['chemin', 'fichier', 'extension'] )
 dossAide = dossier + 'aide-memoire/'
 

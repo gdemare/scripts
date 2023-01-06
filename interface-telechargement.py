@@ -57,16 +57,15 @@ def ytvideo(url):
     print(url)
     os.system(f"yt-dlp -P {dossier} {ytid}")
 
-def rfOne (url):
-    mp3, titre = audioLien(url)
-    print( rfFichier(mp3, titre) )
-    download( rfFichier(mp3, titre), mp3)
-
-def rfFew (url):
+def radioFrance (url):
     liste = rfListe(url)
+    if rfListe(url)==[]:
+        liste.append(url)
     print(f"{len(liste)} épisodes trouvés" )
     for i in liste:
-        rfOne(i)
+        mp3, titre = audioLien(i)
+        print( rfFichier(mp3, titre) )
+        download( rfFichier(mp3, titre), mp3)
 
 ##-----------------------Interface------------------------
 root = tk.Tk()
@@ -74,9 +73,9 @@ root = tk.Tk()
 textEntry = tk.StringVar()
 
 saisie = tk.Entry(root, textvariable = textEntry, width=50)
-saisie.grid(row=1, padx=20,  pady=10)
+saisie.grid(row=1, padx=20,  pady=10, column=0)
+tk.Button(root, text="Blanc", command=lambda: ytvideo(saisie.get()), width=10 ).grid(row=1, column=1, padx=15)
 tk.Button(root, text="Youtube vidéo", command=lambda: ytvideo(saisie.get()), width=30).grid(row=3)
-tk.Button(root, text="Radio france épisode", command=lambda: rfOne(saisie.get()), width=30).grid(row=4)
-tk.Button(root, text="Radio france Plusieurs", command=lambda: rfFew(saisie.get()), width=30).grid(row=5, pady=5)
+tk.Button(root, text="Radio france", command=lambda: radioFrance(saisie.get()), width=30).grid(row=4)
 
 root.mainloop()
