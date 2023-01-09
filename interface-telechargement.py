@@ -55,7 +55,7 @@ def rfFichier (url, titre):
 def ytvideo(url):
     ytid = url[len("https://www.youtube.com/watch?v="):]
     print(url)
-    os.system(f"yt-dlp -P {dossier} {ytid}")
+    os.system(f"yt-dlp -P {dossier} {ytid} --merge-output-format mkv --remux mkv")
 
 def radioFrance (url):
     liste = rfListe(url)
@@ -66,6 +66,8 @@ def radioFrance (url):
         mp3, titre = audioLien(i)
         print( rfFichier(mp3, titre) )
         download( rfFichier(mp3, titre), mp3)
+
+
 
 ##-----------------------Interface------------------------
 root = tk.Tk()
